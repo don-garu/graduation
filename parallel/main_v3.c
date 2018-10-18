@@ -8,7 +8,7 @@
 #include "lib.h"
 
 #define KERNEL "kernel_v3.cl"
-#define DATA "/home/jjun/opencl/astar/data/v500000_e1111111.csv"
+#define DATA "/home/jjun/graduation/data/v500000_e1111111.csv"
 #define FACTOR 100
 
 int main(int argc, char *argv[]){

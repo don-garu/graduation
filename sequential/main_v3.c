@@ -19,7 +19,7 @@ double get_time(){
 	return (double)tv.tv_sec + (double)1e-6 * tv.tv_usec;
 }
 
-#define DATA "/home/jjun/opencl/astar/data/v500000_e1111111.csv"
+#define DATA "/home/jjun/graduation/data/v500000_e1111111.csv"
 
 typedef struct {
 	int x, y;
