@@ -8,8 +8,8 @@
 #include "lib.h"
 
 #define KERNEL "kernel_v3.cl"
-#define DATA "/home/jjun/graduation/data/v500000_e1111111.csv"
-#define FACTOR 100
+#define DATA "/home/jjun/graduation/data/v1000000_e2222222.csv"
+#define FACTOR 1000
 
 int main(int argc, char *argv[]){
     FILE* stream = fopen(DATA, "r");

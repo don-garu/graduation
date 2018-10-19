@@ -19,7 +19,7 @@ double get_time(){
 	return (double)tv.tv_sec + (double)1e-6 * tv.tv_usec;
 }
 
-#define DATA "/home/jjun/graduation/data/v500000_e1111111.csv"
+#define DATA "/home/jjun/graduation/data/v1000000_e2222222.csv"
 
 typedef struct {
 	int x, y;
@@ -156,9 +156,13 @@ int main(int argc, const char *argv[]){
 
 	printf("time : %lf\n", elapsed);
 
-	FILE* fp_record = fopen("record_seq.txt", "a+");
-	fprintf(fp_record, "[%d] time : %lf\n", n, elapsed);
-	fclose(fp_record);
+	int want_file;
+    scanf("%d", &want_file);
+    if (want_file == 1){
+        FILE* fp_record = fopen("record_seq.txt", "a+");
+		fprintf(fp_record, "[%d] time : %lf\n", n, elapsed);
+		fclose(fp_record);
+    }    
 
 	return 0;
 }
