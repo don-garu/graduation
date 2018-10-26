@@ -3,8 +3,8 @@
 #include <math.h>
 #include <string.h>
 
-#include "heap.h"
-#include "vector.h"
+#include "/home/jjun/graduation/sequential/heap.h"
+#include "/home/jjun/graduation/sequential/vector.h"
 
 #include <sys/time.h>
 #include <unistd.h>
@@ -43,7 +43,13 @@ int main(int argc, const char *argv[]){
     heap pq;
     pair p;
     
-	FILE* stream = fopen(DATA, "r");
+	FILE* stream;
+	if (argc == 1)
+		stream = fopen(DATA, "r");
+	else if (argc == 2)
+		stream = fopen(argv[1], "r");
+	else
+		return -1;
 	char line[1024];
     char *tmp;
 
@@ -156,13 +162,9 @@ int main(int argc, const char *argv[]){
 
 	printf("time : %lf\n", elapsed);
 
-	int want_file;
-    scanf("%d", &want_file);
-    if (want_file == 1){
-        FILE* fp_record = fopen("record_seq.txt", "a+");
-		fprintf(fp_record, "[%d] time : %lf\n", n, elapsed);
-		fclose(fp_record);
-    }    
+    FILE* fp_result = fopen("/home/jjun/graduation/result/result.txt", "a+");
+	fprintf(fp_result, "s, %d, %lf\n", n, elapsed);
+	fclose(fp_result);
 
 	return 0;
 }

@@ -7,12 +7,18 @@
 #include "node.h"
 #include "lib.h"
 
-#define KERNEL "kernel_v3.cl"
-#define DATA "/home/jjun/graduation/data/v1000000_e2222222.csv"
-#define FACTOR 1000
+#define KERNEL "/home/jjun/graduation/parallel/kernel_v3.cl"
+#define DATA "/home/jjun/graduation/data/v200000_e310000.csv"
+#define FACTOR 100
 
 int main(int argc, char *argv[]){
-    FILE* stream = fopen(DATA, "r");
+	FILE* stream;
+	if (argc == 1)
+		stream = fopen(DATA, "r");
+	else if (argc == 2)
+		stream = fopen(argv[1], "r");
+	else
+		return -1;
     char line[1024];
     char *tmp;
 
@@ -27,6 +33,7 @@ int main(int argc, char *argv[]){
     int a, b;
     float w;
     int b_max = 0;
+	int l_size = FACTOR;
 
     int *global_open;
 
@@ -42,6 +49,16 @@ int main(int argc, char *argv[]){
 	}
 
 	printf("n : %d, m : %d\n", n, m);
+
+	if (n == 1000000)
+		l_size = 1000;
+    else if (n == 200000)
+        l_size = 500;
+    else if (n < 10000 || n == 30000)
+        l_size = 10;
+ //   else if (n <= 10000)
+  //      l_size = 50;
+    
 
     Node = (node*)calloc(sizeof(node), n);
     weight = (float*)calloc(sizeof(float), n);
@@ -139,7 +156,7 @@ int main(int argc, char *argv[]){
     size_t kernel_source_size;
 
     size_t global_size = n;
-    size_t local_size = FACTOR;
+    size_t local_size = l_size;
     size_t group_size = global_size / local_size;
 
     err = clGetPlatformIDs(1, &platform, &num_platforms);
@@ -344,13 +361,21 @@ int main(int argc, char *argv[]){
 
     printf("time : %lf\n", elapsed);
 
-    int want_file;
-    scanf("%d", &want_file);
-    if (want_file == 1){
-        FILE* fp_record = fopen("record_par.txt", "a+");
-	    fprintf(fp_record, "[%d] FACTOR %d, time : %lf\n", n, FACTOR, elapsed);
-	    fclose(fp_record);
-    }    
+//    int want_file;
+//    scanf("%d", &want_file);
+//    if (want_file == 1){
+//        FILE* fp_record = fopen("record_par.txt", "a+");
+//	    fprintf(fp_record, "[%d] FACTOR %d, time : %lf\n", n, FACTOR, elapsed);
+//	    fclose(fp_record);
+//   }    
+	if (weight[end] == INF){
+		printf("execution error!\n");
+		return -1;
+	}
+
+	FILE* fp_result = fopen("/home/jjun/graduation/result/result.txt", "a+");
+	fprintf(fp_result, "p, %d, %lf\n", n, elapsed);
+	fclose(fp_result);
 
     return 0;
 }
