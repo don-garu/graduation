@@ -163,7 +163,7 @@ int main(int argc, const char *argv[]){
 	printf("time : %lf\n", elapsed);
 
     FILE* fp_result = fopen("/home/jjun/graduation/result/result.txt", "a+");
-	fprintf(fp_result, "s, %d, %lf\n", n, elapsed);
+	fprintf(fp_result, "sequential,%d,%lf\n", n, elapsed);
 	fclose(fp_result);
 
 	return 0;

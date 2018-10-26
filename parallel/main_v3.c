@@ -374,7 +374,7 @@ int main(int argc, char *argv[]){
 	}
 
 	FILE* fp_result = fopen("/home/jjun/graduation/result/result.txt", "a+");
-	fprintf(fp_result, "p, %d, %lf\n", n, elapsed);
+	fprintf(fp_result, "parallel,%d,%lf\n", n, elapsed);
 	fclose(fp_result);
 
     return 0;
